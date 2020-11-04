@@ -32,23 +32,22 @@ public class SignController {
     @SneakyThrows
     @ApiOperation(value = "로그인", notes = "이메일 회원 로그인을 한다.")
     @PostMapping(value = "/signin")
-    public SingleResult<String> signin(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
+    public SingleResult<String> signIn(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
                                        @ApiParam(value = "비밀번호", required = true) @RequestParam String password) {
 
-        System.out.println("==================");
-        System.out.println("id : " + id);
-
         User user = userJpaRepo.findByUid(id).orElseThrow(Exception::new);
+
+        System.out.println(user.getPassword());
+
         if (!passwordEncoder.matches(password, user.getPassword()))
             throw new Exception();
 
         return responseService.getSingleResult(jwtTokenProvider.createToken(String.valueOf(user.getMsrl()), user.getRoles()));
-
     }
 
     @ApiOperation(value = "가입", notes = "회원가입을 한다.")
     @PostMapping(value = "/signup")
-    public CommonResult signin(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
+    public CommonResult signUp(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String id,
                                @ApiParam(value = "비밀번호", required = true) @RequestParam String password,
                                @ApiParam(value = "이름", required = true) @RequestParam String name) {
 
@@ -58,6 +57,8 @@ public class SignController {
                 .name(name)
                 .roles(Collections.singletonList("ROLE_USER"))
                 .build());
+
         return responseService.getSuccessResult();
+
     }
 }

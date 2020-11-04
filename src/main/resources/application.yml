@@ -1,9 +1,11 @@
 spring:
   jpa:
     showSql: true
-  messages:
-    basename: i18n/exception
-    encoding: UTF-8
+    hibernate:
+      ddl-auto: create
+#  messages:
+#    basename: i18n/exception
+#    encoding: UTF-8
   jwt:
     secret: govlepel@$&
 

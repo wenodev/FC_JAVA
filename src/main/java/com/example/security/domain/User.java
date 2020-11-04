@@ -30,8 +30,8 @@ public class User implements UserDetails {
     private String uid;
 
 
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
-    @Column(nullable = false, length = 100)
+//    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column
     private String password;
 
     @Column // name column을 명시합니다. 필수이고 길이는 100입니다.
@@ -50,13 +50,13 @@ public class User implements UserDetails {
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getPassword() {
-        return null;
+        return this.password;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     @Override
     public String getUsername() {
-        return null;
+        return this.name;
     }
 
     @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

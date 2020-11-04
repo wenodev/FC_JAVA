@@ -20,8 +20,6 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
         this.jwtTokenProvider = jwtTokenProvider;
     }
 
-
-
     // Request 로 들어오는 Jwt Token 의 유효성을 검증
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
