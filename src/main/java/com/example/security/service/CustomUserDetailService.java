@@ -1,5 +1,6 @@
 package com.example.security.service;
 
+import com.example.security.controller.exception.custom.CUserNotFoundException;
 import com.example.security.domain.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -19,6 +20,6 @@ public class CustomUserDetailService implements UserDetailsService {
     @SneakyThrows
     @Override
     public UserDetails loadUserByUsername(String userPk) throws UsernameNotFoundException {
-        return (UserDetails) userRepository.findById(Long.valueOf(userPk)).orElseThrow(Exception::new);
+        return (UserDetails) userRepository.findById(Long.valueOf(userPk)).orElseThrow(CUserNotFoundException::new);
     }
 }
